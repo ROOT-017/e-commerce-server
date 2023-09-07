@@ -16,14 +16,17 @@ exports.checkoutSession = async (req, res, next) => {
       quantity: item.quantity,
     };
   });
-
-  const session = await stripe.checkout.sessions.create({
-    line_items,
-    payment_method_types: ["card"],
-    customer_email: email,
-    mode: "payment",
-    success_url: `https://e-commerce-sigma-lemon.vercel.app/purchase/success`,
-    cancel_url: `https://e-commerce-sigma-lemon.vercel.app/?canceled=true`,
-  });
+  try {
+    const session = await stripe.checkout.sessions.create({
+      line_items,
+      payment_method_types: ["card"],
+      customer_email: email,
+      mode: "payment",
+      success_url: `https://e-commerce-sigma-lemon.vercel.app/purchase/success`,
+      cancel_url: `https://e-commerce-sigma-lemon.vercel.app/?canceled=true`,
+    });
+  } catch (err) {
+    console.log(err);
+  }
   res.send({ url: session.url });
 };
