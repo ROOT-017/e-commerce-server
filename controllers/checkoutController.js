@@ -1,7 +1,10 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 exports.checkoutSession = async (req, res, next) => {
   const { items, email } = req.body;
-  // console.log(items);
+  if (!items)
+    return res.send({
+      url: "https://e-commerce-sigma-lemon.vercel.app/?canceled=true",
+    });
   const line_items = items.map((item) => {
     return {
       price_data: {
@@ -22,11 +25,11 @@ exports.checkoutSession = async (req, res, next) => {
       payment_method_types: ["card"],
       customer_email: email,
       mode: "payment",
-      success_url: `https://e-commerce-sigma-lemon.vercel.app/purchase/success`,
-      cancel_url: `https://e-commerce-sigma-lemon.vercel.app/?canceled=true`,
+      success_url: "https://e-commerce-sigma-lemon.vercel.app/purchase/success",
+      cancel_url: "https://e-commerce-sigma-lemon.vercel.app/?canceled=true",
     });
+    res.send({ url: session.url });
   } catch (err) {
     console.log(err);
   }
-  res.send({ url: session.url });
 };
