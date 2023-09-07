@@ -22,8 +22,8 @@ exports.checkoutSession = async (req, res, next) => {
     payment_method_types: ["card"],
     customer_email: email,
     mode: "payment",
-    success_url: `http://localhost:3000/purchase/success`,
-    cancel_url: `http://localhost:3000/?canceled=true`,
+    success_url: `https://e-commerce-sigma-lemon.vercel.app/purchase/success`,
+    cancel_url: `https://e-commerce-sigma-lemon.vercel.app/?canceled=true`,
   });
   res.send({ url: session.url });
 };
