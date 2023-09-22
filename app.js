@@ -15,7 +15,8 @@ app.options("*", cors());
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 
 app.use("/create-checkout-session", checkoutSession);
+const PORT = process.env.NODE_ENV === "development" ? 8000 : process.env.PORT;
 
-app.listen(8000, () => {
-  console.log("Server is running on port 8000");
+app.listen(PORT, () => {
+  console.log("Server is running on port " + PORT);
 });
