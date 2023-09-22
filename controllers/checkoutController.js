@@ -1,11 +1,11 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const successUrl =
-  process.env.Node_ENV === "development"
+  process.env.NODE_ENV === "development"
     ? "http://localhost:3000/purchase/success"
     : "https://e-commerce-sigma-lemon.vercel.app/purchase/success";
 const cancelUrl =
-  process.env.Node_ENV === "development"
+  process.env.NODE_ENV === "development"
     ? "http://localhost:3000/?canceled=true"
     : "https://e-commerce-sigma-lemon.vercel.app/?canceled=true";
 exports.checkoutSession = async (req, res, next) => {
