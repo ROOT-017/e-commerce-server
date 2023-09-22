@@ -14,7 +14,7 @@ exports.checkoutSession = async (req, res, next) => {
           images: [item.image],
           description: item.description,
         },
-        unit_amount: item.unit_price * 100,
+        unit_amount: item.price * 100,
       },
       quantity: item.quantity,
     };
